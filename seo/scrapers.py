@@ -485,7 +485,9 @@ class Instagram(Website):
             print(resultList)    
             return resultList   
     def load_cookies(self):
-        with open(self, 'rb') as f:    
+        with open(self, 'rb') as f: 
+            if not f:
+                Instagram.login(self)
             return pickle.load(f)           
     def save_cookies(self,requests_cookiejar ):
         with open(self, 'wb') as f:
