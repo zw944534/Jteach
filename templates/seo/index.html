@@ -1,0 +1,41 @@
+{% extends 'users/base.html' %}
+
+{% block content %}
+
+    <form action="" method="Post">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-11">
+                <input class="form-control" name="city_name" placeholder="請輸入欲查詢關鍵字">
+            </div>
+            <div class="form-group col-1">
+                <input class="btn btn-dark" type="submit" value="查詢">
+            </div>
+        </div>
+    </form>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>熱門</th>
+                <th>人氣竄升</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ticket in tickets %}
+            <tr>
+                <td>
+                	{{ ticket.top }}
+                	<br>
+                	<a href={{ticket.topUrl}}>相關新聞</a>
+                </td>
+                <td>
+                	{{ ticket.rise }}
+                	<br>
+                	<a href={{ticket.riseUrl}}>相關新聞</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

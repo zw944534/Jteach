@@ -1,0 +1,240 @@
+{% extends 'users/base.html' %}
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4"></script>
+    {%block scripts%}
+    <script language="JaveScript">
+		var canvas = document.getElementById('productLineChart').getContext("2d");
+		var myLineChart = new Chart(canvas, {
+               type: 'line',
+               data: {
+                   labels:[{% for i in label %}{{ i }},{% endfor %}],
+                   datasets: [{
+                        label:'My Dot',
+                        data: [{% for i in data %}{{ i }},{% endfor %}]
+                             }]
+                      },
+               options:{
+                   scales: {
+                       xAxes: [{
+                           display:true
+                              }],
+                       yAxes: [{
+                           ticks: {
+                               beginAtZero:true
+                                   }
+                               }]
+                            }
+                        }
+                      });
+		console.log(canvas);
+		console.log('----------------------');
+	</script>
+{%endblock scripts%}
+
+
+
+
+{% block content %}
+
+    <form action="" method="Post">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-11">
+                <input class="form-control" name="city_name" placeholder="請輸入欲查尋商品名稱/關鍵字">
+            </div>
+            <div class="form-group col-1">
+                <input class="btn btn-dark" type="submit" value="查詢">
+            </div>
+        </div>
+    </form>
+    <div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12">
+			    <div role="tabpanel">
+			    <!-- tab tag setting -->
+				    <ul class="nav nav-tabs" role="tablist">
+	                    <li role="presentation" class="active">
+	                        <a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab">Pchome</a>
+	                    </li>
+	                    <li role="presentation">
+	                        <a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab">Momo</a>
+	                    </li>
+	                    <li role="presentation">
+	                        <a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">Shopee</a>
+	                    </li>
+	                    <li role="presentation">
+	                        <a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab">Yahoo</a>
+	                    </li>
+	                    <li role="presentation">
+	                        <a href="#tab5" aria-controls="tab5" role="tab" data-toggle="tab">Ruten</a>
+	                    </li>
+	                    <li role="presentation">
+	                        <a href="#tab6" aria-controls="tab6" role="tab" data-toggle="tab">生活市集</a>
+	                    </li>
+	                </ul>
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="tab1">
+							<label>Pchome</label>
+							<table class="table table-hover table-striped table-bordered table-condensed">
+						        <thead>
+						            <tr>
+						                <th>商品名稱</th>
+						                <th>商品描述</th>
+						                <th>價格</th>
+						            </tr>
+						        </thead>
+						        <tbody>
+						            {% for ticket in tickets %}
+						            <tr>
+						                <td>
+							                <a href={{ticket.url}}>
+							                	{{ ticket.title }}
+							                </a>
+						                </td>
+						                <td>
+						                	{{ ticket.describe }}
+						                </td>
+						                <td>
+						                	{{ ticket.price }}
+						                </td>
+						            </tr>
+						            {% endfor %}
+						        </tbody>
+						    </table>	
+						</div>
+						<div role="tabpanel" class="tab-pane" id="tab2">
+							<label>Momo</label>
+							<table class="table table-hover table-striped table-bordered table-condensed">
+						        <thead>
+						            <tr>
+						                <th>商品名稱</th>
+						                <th>商品描述</th>
+						                <th>價格</th>
+						            </tr>
+						        </thead>
+						        <tbody>
+						            {% for ticket in momos %}
+						            <tr>
+						                <td>
+							                <a href={{ticket.url}}>
+							                	{{ ticket.title }}
+							                </a>
+						                </td>
+						                <td>
+						                	{{ ticket.describe }}
+						                </td>
+						                <td>
+						                	{{ ticket.price }}
+						                </td>
+						            </tr>
+						            {% endfor %}
+						        </tbody>
+						    </table>	
+						</div>
+						<div role="tabpanel" class="tab-pane" id="tab3">
+							<label>Yahoo</label>
+							<table class="table table-hover table-striped table-bordered table-condensed">
+						        <thead>
+						            <tr>
+						                <th>商品名稱</th>
+						                <th>價格</th>
+						            </tr>
+						        </thead>
+						        <tbody>
+						            {% for ticket in shopee %}
+						            <tr>
+						                <td>
+						                	{{ ticket.name }}
+						                </td>
+						                <td>
+						                	{{ ticket.price }}
+						                </td>
+						            </tr>
+						            {% endfor %}
+						            
+						        </tbody>
+						    </table>	
+						</div>
+						<div role="tabpanel" class="tab-pane" id="tab4">
+							<label>Shopee</label>
+							<table class="table table-hover table-striped table-bordered table-condensed">
+						        <thead>
+						            <tr>
+						                <th>商品名稱</th>
+						                <th>價格</th>
+						            </tr>
+						        </thead>
+						        <tbody>
+						            {% for ticket in yahoo %}
+						            <tr>
+						                <td>
+						                	{{ ticket.title }}
+						                </td>
+						                <td>
+						                	{{ ticket.price }}
+						                </td>
+						            </tr>
+						            {% endfor %}
+						        </tbody>
+						    </table>	
+						</div>
+						<div role="tabpanel" class="tab-pane" id="tab5">
+							<label>Ruten</label>
+							<table class="table table-hover table-striped table-bordered table-condensed">
+						        <thead>
+						            <tr>
+						                <th>商品名稱</th>
+						                <th>價格</th>
+						            </tr>
+						        </thead>
+						        <tbody>
+						            {% for ticket in ruten %}
+						            <tr>
+						                <td>
+						                	{{ ticket.name }}
+						                </td>
+						                <td>
+						                	{{ ticket.price }}
+						                </td>
+						            </tr>
+						            {% endfor %}
+						        </tbody>
+						    </table>	
+						</div>
+						<div role="tabpanel" class="tab-pane" id="tab6">
+							<label>生活市集</label>
+							<table class="table table-hover table-striped table-bordered table-condensed">
+						        <thead>
+						            <tr>
+						                <th>商品名稱</th>
+						                <th>價格</th>
+						            </tr>
+						        </thead>
+						        <tbody>
+						            {% for ticket in buy123 %}
+						            <tr>
+						                <td>
+						                	{{ ticket.name }}
+						                </td>
+						                <td>
+						                	{{ ticket.price }}
+						                </td>
+						            </tr>
+						            {% endfor %}
+						        </tbody>
+						    </table>	
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12">
+				<div>
+					<canvas id="productLineChart"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+{% endblock %}

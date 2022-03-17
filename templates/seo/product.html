@@ -1,0 +1,30 @@
+{% extends 'users/base.html' %}
+{% block content %}
+	<div class='container'>  
+		<div class="row mb-4 ">
+			<div class="row modal-body">
+			   	{% for product in products %}
+			   	<div class="col-md-4 mb-3">
+				<div class="card" style="width: 18rem;">
+				<img src={{ product.src }} class="card-img-top" alt="https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg">
+				<div class="card-body">
+				<h5 class="card-title">
+				{{ product.product }}
+				</h5>
+				<p class="card-text">
+				<a href="#">#</a>
+				<a href="#">#</a>
+				<a href="#">#</a>
+				<a href="#">#</a>
+				<a href="#">#</a>
+				</p>
+				</div>
+				</div>
+				</div>
+			   	{% endfor %}
+			</div>
+		</div>
+	</div> 
+
+
+{% endblock %}

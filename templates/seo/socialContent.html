@@ -1,0 +1,94 @@
+{% extends 'users/base.html' %}
+
+{% block content %}
+
+    <form action="" method="Post">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-11">
+                <input class="form-control" name="city_name" placeholder="請輸入欲查尋粉絲頁/社團連結">
+            </div>
+            <div class="form-group col-1">
+                <input class="btn btn-dark" type="submit" value="查詢">
+            </div>
+        </div>
+    </form>
+    <div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12">
+			    <div role="tabpanel">
+			    <!-- tab tag setting -->
+				    <ul class="nav nav-tabs" role="tablist">
+	                    <li role="presentation" class="active">
+	                        <a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab">Facebook 粉絲頁</a>
+	                    </li>
+	                    <li role="presentation">
+	                        <a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab">Facebook 社團</a>
+	                    </li>
+	                </ul>
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="tab1">
+							<label>Group</label>
+							<table class="table table-hover table-striped table-bordered table-condensed">
+						        <thead>
+						            <tr>
+						                <th>發文時間</th>
+						                <th>發文內容</th>
+						                <th>連結</th>
+						            </tr>
+						        </thead>
+						        <tbody>
+						            {% for ticket in fb %}
+						            <tr>
+						                <td>
+							                {{ ticket.TIME }}
+						                </td>
+						                <td>
+						                	{{ticket.MESSAGE}}
+						                </td>
+						                <td>
+						                	<a href='{{ticket.LINK}}posts/{{ticket.POSTID}}?locale=zh-TW'>Link</a>
+						                </td>
+						            </tr>
+						            {% endfor %}
+						        </tbody>
+						    </table>	
+						</div>
+						<!--<div role="tabpanel" class="tab-pane" id="tab2">
+							<label>Momo</label>
+							<!--<table class="table table-hover table-striped table-bordered table-condensed">
+						        <thead>
+						            <tr>
+						                <th>商品名稱</th>
+						                <th>商品描述</th>
+						                <th>價格</th>
+						            </tr>
+						        </thead>
+						        <tbody>
+						            {% for ticket in momos %}
+						            <tr>
+						                <td>
+							                <a href={{ticket.url}}>
+							                	{{ ticket.title }}
+							                </a>
+						                </td>
+						                <td>
+						                	{{ ticket.describe }}
+						                </td>
+						                <td>
+						                	{{ ticket.price }}
+						                </td>
+						            </tr>
+						            {% endfor %}
+						        </tbody>
+						    </table>-->	
+						</div>-->
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    
+
+{% endblock %}
