@@ -1,9 +1,9 @@
-import io;
+# import io;
 import json;
 from datetime import datetime;
 import ast;
-from distutils.file_util import write_file
-import matplotlib.pyplot as plt
+# from distutils.file_util import write_file
+# import matplotlib.pyplot as plt
 
 class writeFile():
     
@@ -90,35 +90,35 @@ class writeFile():
             # buy123Dict[date] = writeFile.getAvgPrice(writeFile.normalList(priceBuy))
         # x-axis
         x = [int(i) for i in range(len(dateList))]
-        plt.xticks(x, dateList)  # 將 x-axis 用字串標註
-        price_momo = [momoDict[d] for d in dateList]  # y1-axis
-        price_pchome = [pcDict[d] for d in dateList]  # y2-axis
-        price_shopee = [shopeeDict[d] for d in dateList]
-        # price_yahoo = [yahooDict[d] for d in dateList]
-        # price_ruten = [rutenDict[d] for d in dateList]
-        # price_buy123 = [buy123Dict[d] for d in dateList]
-        plt.plot(x, price_momo, marker='o', linestyle='solid')
-        plt.plot(x, price_pchome, marker='o', linestyle='solid')
-        plt.plot(x, price_shopee, marker='o', linestyle='solid')
-        # plt.plot(x, price_yahoo, marker='o', linestyle='solid')
-        # plt.plot(x, price_ruten, marker='o', linestyle='solid')
-        # plt.plot(x, price_buy123, marker='o', linestyle='solid')
-        # plt.legend(['momo', 'pchome','shopee','yahoo','ruten','buy123'])
-        plt.legend(['momo', 'pchome','shopee'])
-        # specify values on ys
-        for a, b in zip(x, price_momo):
-            plt.text(a, b, str(int(b)))
-        for a, b in zip(x, price_pchome):
-            plt.text(a, b, str(int(b)))
-        for a, b in zip(x, price_shopee):
-            plt.text(a, b, str(int(b)))
-        # for a, b in zip(x, price_yahoo):
+        # plt.xticks(x, dateList)  # 將 x-axis 用字串標註
+        # price_momo = [momoDict[d] for d in dateList]  # y1-axis
+        # price_pchome = [pcDict[d] for d in dateList]  # y2-axis
+        # price_shopee = [shopeeDict[d] for d in dateList]
+        # # price_yahoo = [yahooDict[d] for d in dateList]
+        # # price_ruten = [rutenDict[d] for d in dateList]
+        # # price_buy123 = [buy123Dict[d] for d in dateList]
+        # plt.plot(x, price_momo, marker='o', linestyle='solid')
+        # plt.plot(x, price_pchome, marker='o', linestyle='solid')
+        # plt.plot(x, price_shopee, marker='o', linestyle='solid')
+        # # plt.plot(x, price_yahoo, marker='o', linestyle='solid')
+        # # plt.plot(x, price_ruten, marker='o', linestyle='solid')
+        # # plt.plot(x, price_buy123, marker='o', linestyle='solid')
+        # # plt.legend(['momo', 'pchome','shopee','yahoo','ruten','buy123'])
+        # plt.legend(['momo', 'pchome','shopee'])
+        # # specify values on ys
+        # for a, b in zip(x, price_momo):
         #     plt.text(a, b, str(int(b)))
-        # for a, b in zip(x, price_ruten):
+        # for a, b in zip(x, price_pchome):
         #     plt.text(a, b, str(int(b)))
-        # for a, b in zip(x, price_buy123):
+        # for a, b in zip(x, price_shopee):
         #     plt.text(a, b, str(int(b)))
-        plt.show()
+        # # for a, b in zip(x, price_yahoo):
+        # #     plt.text(a, b, str(int(b)))
+        # # for a, b in zip(x, price_ruten):
+        # #     plt.text(a, b, str(int(b)))
+        # # for a, b in zip(x, price_buy123):
+        # #     plt.text(a, b, str(int(b)))
+        # plt.show()
     def normalList(self):
         self.remove(max(self))
         self.remove(min(self))

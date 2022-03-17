@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from seo.scrapers import GTrens,Klook, Kkday,Pro, Pchome,Momo,Shopee,Yahoo,\
     Ruten,Buy123,Facebook,Instagram,Article
-from seo.write_file import writeFile
-from distutils.file_util import write_file
 from django.contrib.auth.decorators import login_required
 from future.builtins.misc import isinstance
 
