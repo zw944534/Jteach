@@ -10,10 +10,14 @@ import json
 from datetime import datetime
 from .models import Profile,Product,Article 
 from django.contrib.auth.models import User
+from os.path import exists
 
 def load_cookies(self):
-    with open(self, 'rb') as f:    
-        return pickle.load(f)           
+    if exists(self): 
+        with open(self, 'rb') as f:
+            return pickle.load(f)  
+    else:
+        login(self)         
 def save_cookies(self,requests_cookiejar ):
     with open(self, 'wb') as f:
         pickle.dump(requests_cookiejar, f)
