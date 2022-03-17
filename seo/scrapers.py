@@ -7,18 +7,12 @@ from abc import ABC, abstractmethod
 from bs4 import BeautifulSoup
 import requests
 from pytrends.request import TrendReq
-import pandas as pd
 from datetime import datetime
 import urllib
 import re
 import facebook_crawler as fc
-import ast
 import json
 import pickle
-from django.utils.functional import empty
-import os
-import gpt_2_simple as gpt2
-from keytotext import pipeline
 import random
 import io
 
