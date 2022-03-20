@@ -125,7 +125,14 @@ def Ig(request):
     return render(request,"seo/igContent.html",context)
 
 def ArticleView(request):
-    
+#    select source fb/ig/
+#    filter by time/likes
+#    article tags
+#    top topics graph
+#    智能小編
+#    article construct limit
+#    
+
     if(request.user.profile.permission!='2'):
         user_form = request.user
         return render(request,'users/user_permissions.html', {'user': user_form})
