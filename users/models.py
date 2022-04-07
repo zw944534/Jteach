@@ -44,6 +44,9 @@ class Product(models.Model):
 class Article(models.Model):
     id = models.UUIDField(primary_key=True,default = uuid.uuid4, help_text='unique Id for this table')
     src = models.CharField(max_length=200)
+    time = models.CharField(max_length=200,default='0')
+    likes = models.CharField(max_length=200,default='0')
+    commentCount = models.CharField(max_length=200,default='0')
     content = models.TextField(blank=True)
     pic = models.ImageField(default='default.jpg', upload_to='article_images')
     product = models.ForeignKey(Product,on_delete=models.CASCADE,related_name='article')

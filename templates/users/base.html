@@ -19,8 +19,7 @@
 
     <!-- A plugin for password show/hide  -->
     <script src="https://unpkg.com/bootstrap-show-password@1.2.1/dist/bootstrap-show-password.min.js"></script>
-	
-	
+
 	
 	
     <title>{% block title %} {% endblock %} </title>
@@ -30,7 +29,10 @@
     <div class="row">
       <div class="col-md-12">
         <nav class="navbar navbar-expand-md navbar-light " style="background-color: #f0f5f5">
-          <a href="/" class="navbar-brand">Home</a>
+        	<a href="/" class="navbar-brand ">
+          		<img src="/media/logo/logo_radius.png" id="logo" alt="home"  width="80" height="40" />
+          	</a>
+         
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -39,34 +41,35 @@
                   {% if user.is_authenticated %}
                   <ul class="nav nav-pills nav-fill">
                   	<li class="nav-item">
+                  		<a href="{% url 'users-profile' %}" id='profile'   data-bs-toggle="pill" class="nav-link">會員資訊</a>
+                  	</li>
+                  	<li class="nav-item">
+                  		<a href="/mem_product" id='mem_product' data-bs-toggle="pill" class="nav-link">商品設定</a>
+                  	</li>	
+                  	<li class="nav-item">
                   		<a href="/seo"  id='seo' data-bs-toggle="pill" class="nav-link">趨勢搜尋</a>
                   	</li>	
+                  	<li class="nav-item">
+                  		<a href="/product_article" id='product_article' data-bs-toggle="pill" class=" nav-link">商品文章</a>
+                  	</li>
                   	<!--<li class="nav-item">
                   		<a href="/seo/product" id='product' data-bs-toggle="pill" class="nav-link"></a>
                   	</li>-->
                   	<li class="nav-item">
                   		<a href="/seo/search" id='search'  data-bs-toggle="pill" class=" nav-link">商品搜尋</a>
                   	</li>
+                  	<li class="nav-item">
+                  		<a href="/seo/article" id='article' data-bs-toggle="pill" class="nav-link">文章生成</a>
+                  	</li>
                   	<!-- 
                   	<li class="nav-item">
                   		<a href="/seo/social" id='social' data-bs-toggle="pill" class=" nav-link">Social Search</a>
                   	</li>
                   	 -->
-                  	 <li class="nav-item">
-                  		<a href="/product_article" id='product_article' data-bs-toggle="pill" class=" nav-link">商品文章</a>
-                  	</li>
+                  	 
                   	<!--<li class="nav-item">
                   		<a href="/seo/ig" id='ig' data-bs-toggle="pill" class="nav-link">Ig Search</a>
                   	</li>-->		
-                  	<!--<li class="nav-item">
-                  		<a href="/seo/article" id='article' data-bs-toggle="pill" class="nav-link">文章生成</a>
-                  	</li>-->	
-                  	<li class="nav-item">
-                  		<a href="{% url 'users-profile' %}" id='profile'   data-bs-toggle="pill" class="nav-link">會員資訊</a>
-                  	</li>
-                  	<li class="nav-item">
-                  		<a href="/mem_product" id='mem_product' data-bs-toggle="pill" class="nav-link">商品設定</a>
-                  	</li>	
                   	<li class="nav-item">
                   	     <a href="{% url 'logout' %}"  data-bs-toggle="pill" class="nav-link">登出</a>
                   	</li>				

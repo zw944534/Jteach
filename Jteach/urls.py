@@ -22,6 +22,7 @@ from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from users.views import CustomLoginView, ResetPasswordView, ChangePasswordView
 from users.forms import LoginForm
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     # path('', home, name='users-home'),
@@ -47,3 +48,6 @@ urlpatterns = [
         url(r'^oauth/', include('social_django.urls', namespace='social'))
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += staticfiles_urlpatterns()
+

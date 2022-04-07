@@ -11,6 +11,7 @@ from datetime import datetime
 from .models import Profile,Product,Article 
 from django.contrib.auth.models import User
 from os.path import exists
+import asyncio
 
 def _init_(self):
     self.session=None;
@@ -120,10 +121,13 @@ def search(product_name,user):
             for media in dictList:
                 mediaDict = media.get('media')
                 shortcode = mediaDict.get('code')
+                time = mediaDict.get('taken_at')
+                likeCount = mediaDict.get('like_count')
+                commentCount = mediaDict.get('comment_count')
                 text = mediaDict.get('caption').get('text')
                 print(shortcode)
                 print(text)
-                resultList.append(dict(code=shortcode,text=text))
+                resultList.append(dict(code=shortcode,text=text,time=time,likeCount=likeCount,commentCount=commentCount))
                 # for index in range(len(edgesList)):
                     # edgeDict = edgesList[index].get('node')
                     # text = edgeDict.get('text')
@@ -138,6 +142,9 @@ def search(product_name,user):
             print(resultList[article].get('text'));
             product.article.create(
                 src=resultList[article].get('code'),
+                time = resultList[article].get('time'),
+                likes = resultList[article].get('likeCount'),
+                commentCount = resultList[article].get('commentCount'),
                 content = resultList[article].get('text'),
                 product = product
             )

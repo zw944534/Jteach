@@ -3,6 +3,8 @@ from seo.scrapers import GTrens,Klook, Kkday,Pro, Pchome,Momo,Shopee,Yahoo,\
     Ruten,Buy123,Facebook,Instagram,Article
 from django.contrib.auth.decorators import login_required
 from future.builtins.misc import isinstance
+from users.models import Profile
+import random
 
 @login_required
 def index(request):
@@ -124,6 +126,7 @@ def Ig(request):
     }
     return render(request,"seo/igContent.html",context)
 
+@login_required
 def ArticleView(request):
 #    select source fb/ig/
 #    filter by time/likes
@@ -137,10 +140,22 @@ def ArticleView(request):
         user_form = request.user
         return render(request,'users/user_permissions.html', {'user': user_form})
     
-    article = Article(request.POST.get("city_name"),request.POST.get("description"))
+    profile = Profile.objects.get(user = request.user);
+    constructArticle = '';
+    if profile:
+        product = profile.product.filter(name=request.POST.get("city_name"));
+        articleList=[];
+        for i in list(product):
+            print(i.id,i.name);
+            articleList=i.article.all();
+        if len(articleList)!=0:
+            randomIndex = random.randint(0, len(articleList));
+            constructArticle+=articleList[randomIndex].content;
+            
+    # article = Article(request.POST.get("city_name"),request.POST.get("description"))
     # article.scrape();
-    articleContent = article.scrape()
+    # articleContent = article.scrape()
     context={
-        "article":articleContent
+        "article":constructArticle
     }
     return render(request,"seo/article.html",context)
