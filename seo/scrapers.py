@@ -15,12 +15,16 @@ import json
 import pickle
 import random
 import io
+import os
 
 # 票券網站抽象類別
 class Website2(ABC):
-    def __init__(self, city_name,description):
+    def __init__(self, city_name,description,address,tel,hashtag):
         self.city_name = city_name  # 城市名稱屬性
         self.description = description
+        self.address = address
+        self.tel = tel
+        self.hashtag = hashtag
     @abstractmethod
     def scrape(self):  # 爬取票券抽象方法
         pass
@@ -537,19 +541,28 @@ class Article(Website2):
         print('1234')
         desc = self.description
         keyword = self.city_name
+        address = self.address
+        tel = self.tel
+        hashtag = self.hashtag
+        print(hashtag)
         if desc:            
-            txt = random.randint(0, 1)
-            fileNum = random.randint(1,2)
-            fileName = ['meme','trend']
-            file = io.open(('C:/Users/chu/Documents/for nku/雜/final/ec_workshop/Jteach/src/text_template/'+fileName[txt]+str(fileNum)+'.txt'),mode="r",encoding="utf-8")
+            file_path = os.getcwd()+'\\Jteach\\src\\text_template\\';
+            file = io.open((file_path+'template.txt'),mode="r",encoding="utf-8")
             # file = open(('C:/Users/chu/Documents/for nku/雜/final/ec_workshop/Jteach/src/text_template/'+fileName[txt]+str(fileNum)+'.txt'),'r')
             lines = file.readlines()
             article=""
             for line in lines:
-                if line.find("{keyword}")!=-1:
-                    article+=line.replace("{keyword}",keyword)
-                elif "{description}" in line:
-                    article += line.replace("{description}",desc)
+                if line.find("$product_name$")!=-1:
+                    article+=line.replace("$product_name$",keyword)
+                elif "$product_url$" in line:
+                    article += line.replace("$product_url$",desc)
+                elif "$company_addr$" in line:
+                    article += line.replace("$company_addr$",address)
+                elif "$company_tel$" in line:
+                    article += line.replace("$company_tel$",tel)        
                 else:
                     article+=line
+            if len(hashtag)>0:
+                for tag in hashtag:
+                    article+='#'+tag
             return article;

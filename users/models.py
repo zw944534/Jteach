@@ -36,10 +36,15 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     desc = models.TextField(blank=True)
     user = models.ForeignKey(Profile,  on_delete=models.CASCADE, related_name='product')
+    wordcloud = models.CharField(max_length=500)
     category = models.CharField(max_length=100,default='1')
     
     def _str_(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        super().save()
+
     
 class Article(models.Model):
     id = models.UUIDField(primary_key=True,default = uuid.uuid4, help_text='unique Id for this table')

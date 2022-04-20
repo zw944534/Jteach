@@ -31,3 +31,6 @@ gunicorn==20.1.0
 whitenoise==6.0.0
 facebook_crawler==0.0.25
 future==0.18.2
+wordcloud==1.8.1
+jieba==0.42.1
+imageio==2.16.1

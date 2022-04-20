@@ -140,22 +140,22 @@ def ArticleView(request):
         user_form = request.user
         return render(request,'users/user_permissions.html', {'user': user_form})
     
-    profile = Profile.objects.get(user = request.user);
-    constructArticle = '';
-    if profile:
-        product = profile.product.filter(name=request.POST.get("city_name"));
-        articleList=[];
-        for i in list(product):
-            print(i.id,i.name);
-            articleList=i.article.all();
-        if len(articleList)!=0:
-            randomIndex = random.randint(0, len(articleList));
-            constructArticle+=articleList[randomIndex].content;
+    # profile = Profile.objects.get(user = request.user);
+    # constructArticle = '';
+    # if profile:
+    #     product = profile.product.filter(name=request.POST.get("city_name"));
+    #     articleList=[];
+    #     for i in list(product):
+    #         print(i.id,i.name);
+    #         articleList=i.article.all();
+    #     if len(articleList)!=0:
+    #         randomIndex = random.randint(0, len(articleList));
+    #         constructArticle+=articleList[randomIndex].content;
             
-    # article = Article(request.POST.get("city_name"),request.POST.get("description"))
-    # article.scrape();
-    # articleContent = article.scrape()
+    article = Article(request.POST.get("city_name"),request.POST.get("description"),request.POST.get("address"),request.POST.get("tel"),request.POST.getlist("hashtag"))
+    article.scrape();
+    articleContent = article.scrape()
     context={
-        "article":constructArticle
+        "article":articleContent
     }
     return render(request,"seo/article.html",context)

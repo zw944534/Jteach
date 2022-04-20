@@ -12,6 +12,12 @@ from .models import Profile,Product,Article
 from django.contrib.auth.models import User
 from os.path import exists
 import asyncio
+import jieba
+import imageio
+import wordcloud
+import matplotlib.pyplot as plt
+import io
+import urllib, base64
 
 def _init_(self):
     self.session=None;
@@ -127,6 +133,7 @@ def search(product_name,user):
                 text = mediaDict.get('caption').get('text')
                 print(shortcode)
                 print(text)
+                print(commentCount)
                 resultList.append(dict(code=shortcode,text=text,time=time,likeCount=likeCount,commentCount=commentCount))
                 # for index in range(len(edgesList)):
                     # edgeDict = edgesList[index].get('node')
@@ -136,17 +143,51 @@ def search(product_name,user):
         userObj = User.objects.get(username=user);
         profile = Profile.objects.get(user=userObj);
         product = profile.product.get(name=product_name)
-        
+        articleContent='';
+        commentCount = 0;
+        likeCount = 0;
         for article in range(len(resultList)):
             print(resultList[article].get('code'));
             print(resultList[article].get('text'));
+            articleContent+=resultList[article].get('text');
+            if resultList[article].get('commentCount'):
+                commentCount = resultList[article].get('commentCount');
+            if resultList[article].get('likeCount'):
+                likeCount = resultList[article].get('likeCount');    
             product.article.create(
                 src=resultList[article].get('code'),
                 time = resultList[article].get('time'),
                 likes = resultList[article].get('likeCount'),
-                commentCount = resultList[article].get('commentCount'),
+                commentCount = commentCount,
                 content = resultList[article].get('text'),
                 product = product
             )
-        print(product_name)
+        mk = imageio.imread('https://wordcloudapi.com/word_cloud.png');
+        wc = wordcloud.WordCloud(background_color="white",
+                         prefer_horizontal=0.5,
+                         repeat=True,
+                         mask=mk,
+                         contour_width=2,
+                         contour_color='pink',
+                         collocation_threshold=100,
+                         )
+        articleContentList = jieba.cut(articleContent);
+        jiebaString = ''.join(articleContentList);
+        #
+        wc.generate(jiebaString);
+        plt.imshow(wc, interpolation='bilinear')
+        plt.axis("off")
+
+        image = io.BytesIO()
+        plt.savefig(image, format='png')
+        image.seek(0)  # rewind the data
+        string = base64.b64encode(image.read())
+
+        image_64 = 'data:image/png;base64,' + urllib.parse.quote(string)
+    
+        product.wordcloud = image_64;
+        product.save();
         print(user)
+#    template?    product category to produce article
+#    
+

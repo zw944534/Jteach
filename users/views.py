@@ -181,7 +181,9 @@ def productArticle(request):
     for i in test:
         id = i.id
         name = i.name
+        wordCloud = i.wordcloud
+        print(wordCloud);
         article = list(i.article.all())
-        articleList.append(dict(name=name,article=article,id=id))
+        articleList.append(dict(name=name,article=article,id=id,wordcloud=wordCloud))
     
     return render(request,'users/product_article.html',{'productList':articleList})

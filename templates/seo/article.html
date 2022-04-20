@@ -1,22 +1,51 @@
 {% extends 'users/base.html' %}
 
 {% block content %}
+	<style>
+		#addTag:hover{
+			background-color: #BEBEBE;
+		}
+	</style>
 	<div class="container">
 		<div>{{article}}<div>
 	</div>
     <form action="" method="Post">
         {% csrf_token %}
         <div class="form-row">
-            <div class="form-group col-4">
+            <div class="form-group col-6">
                 <input class="form-control" name="city_name" placeholder="請輸入商品名稱">
             </div>
             <div class="form-group col-6">
-            	<input class="form-control" name="description" placeholder="請輸入簡短描述">
+            	<input class="form-control" name="description" placeholder="請輸入相關網址">
+            </div>    
+        </div>
+        <div class="form-row">
+            <div class="form-group col-6">
+                <input class="form-control" name="address" placeholder="請輸入地址">
             </div>
-            <div class="form-group col-1">
+            <div class="form-group col-6">
+            	<input class="form-control" name="tel" placeholder="請輸入連絡電話">
+            </div>    
+        </div>
+        <div id='hashTag'>
+        	<div id="addTag" style=''>
+        		<span>新增Hash Tag</span>
+        	</div>
+        	
+        </div>
+        <br>
+        <div class="form-group col-1">
                 <input class="btn btn-dark" type="submit" value="產生">
-            </div>
         </div>
     </form>
-
+	<script>
+		function newTag(){
+			var divElement = document.getElementById('hashTag');
+			var inputElement = document.createElement('input');
+			inputElement.class = 'form-control';
+			inputElement.name = 'hashtag';
+			divElement.appendChild(inputElement);
+		}
+		document.getElementById('addTag').onclick=newTag;
+	</script>
 {% endblock %}
