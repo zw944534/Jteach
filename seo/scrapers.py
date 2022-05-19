@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 import requests
 from pytrends.request import TrendReq
 from datetime import datetime
+from users.models import ArticleTemplate
 import urllib
 import re
 import facebook_crawler as fc
@@ -17,17 +18,53 @@ import random
 import io
 import os
 
-# 票券網站抽象類別
+class Template(ABC):
+    def __init__(self,catch,preCatch,subCatch,mainBody,headline,bodyText,
+               description,advantage1,advantage2,advantage3,reason1,reason2,reason3,
+               slogan,bodyPoint,bodyCopy,templateType,user):
+        self.catch = catch
+        self.preCatch = preCatch
+        self.subCatch = subCatch
+        self.mainBody = mainBody
+        self.headline = headline
+        self.bodyText = bodyText
+        self.description = description
+        self.advantage1 = advantage1
+        self.advantage2 = advantage2
+        self.advantage3 = advantage3
+        self.reason1 = reason1
+        self.reason2 = reason2
+        self.reason3 = reason3
+        self.slogan = slogan
+        self.bodyPoint = bodyPoint
+        self.bodyCopy = bodyCopy;
+        self.templateType = templateType;
+        self.user = user;
+    @abstractmethod
+    def scrape(self):
+        pass    
+        
 class Website2(ABC):
+<<<<<<< HEAD
     def __init__(self, city_name,description,address,tel,hashtag,productCategory):
         self.city_name = city_name  # 城市名稱屬性
+=======
+    def __init__(self, city_name,description,urlTitle,address,tel,saleMessage,hashtag,productCategory):
+        self.city_name = city_name
+>>>>>>> d77c0f5f006424a9ae80e57837ec5ca97b644955
         self.description = description
+        self.urlTitle = urlTitle
         self.address = address
         self.tel = tel
+        self.saleMessage = saleMessage
         self.hashtag = hashtag
+<<<<<<< HEAD
         self.productCategory = productCategory
+=======
+        self.productCategory = productCategory;
+>>>>>>> d77c0f5f006424a9ae80e57837ec5ca97b644955
     @abstractmethod
-    def scrape(self):  # 爬取票券抽象方法
+    def scrape(self):
         pass
 class Website(ABC):
 
@@ -546,18 +583,29 @@ class Article(Website2):
         tel = self.tel
         hashtag = self.hashtag
         productCategory = self.productCategory
+<<<<<<< HEAD
         #    productCategory = normal/package/lesson
         print(productCategory)
         print(hashtag)
         if desc:            
             file_path = '/home/ubuntu/django/jteach/text_template/';
+=======
+#    productCategory = normal/package/lesson
+        print(productCategory)
+        if productCategory:            
+            file_path = os.getcwd()+'\\Jteach\\src\\text_template\\';
+>>>>>>> d77c0f5f006424a9ae80e57837ec5ca97b644955
             file = io.open((file_path+'template.txt'),mode="r",encoding="utf-8")
             # file = open(('C:/Users/chu/Documents/for nku/雜/final/ec_workshop/Jteach/src/text_template/'+fileName[txt]+str(fileNum)+'.txt'),'r')
             lines = file.readlines()
             article=""
             for line in lines:
                 if line.find("$product_name$")!=-1:
+<<<<<<< HEAD
                     article+=line.replace("$product_name$",keyword)+'\n'
+=======
+                    article+=line.replace("$product_name$",keyword)+'\n\r'
+>>>>>>> d77c0f5f006424a9ae80e57837ec5ca97b644955
                 elif "$product_url$" in line:
                     article += line.replace("$product_url$",desc)+'\n'
                 elif "$company_addr$" in line:
@@ -565,8 +613,55 @@ class Article(Website2):
                 elif "$company_tel$" in line:
                     article += line.replace("$company_tel$",tel)+'\n'        
                 else:
+<<<<<<< HEAD
                     article+=line+'\n'        
             if len(hashtag)>0:
                 for tag in hashtag:
                     article+='#'+tag
             return article;
+=======
+                    article+=line+'\n'
+            article+='\n'        
+            if len(hashtag)>0:
+                for tag in hashtag:
+                    article+='#'+tag
+                    
+            return article;   
+
+class EditTemplate(Template):
+    def scrape(self):
+        print('in edit template')   
+        if self.user:
+            ArticleTemplate.objects.create(
+                creator = self.user,
+                templatedType = self.convertNull(self.templateType),
+                catch = self.convertNull(self.catch),
+                preCatch = self.convertNull(self.preCatch),
+                subCatch = self.convertNull(self.subCatch),
+                headLine = self.convertNull(self.headline),
+                mainBody = self.convertNull(self.mainBody),
+                bodyText = self.convertNull(self.bodyText),
+                # pattern = self.pattern
+                description = self.convertNull(self.description),
+                advantage_1 = self.convertNull(self.advantage1),
+                advantage_2 = self.convertNull(self.advantage2),
+                advantage_3 = self.convertNull(self.advantage3),
+                reason_1 = self.convertNull(self.reason1),
+                reason_2 = self.convertNull(self.reason2),
+                reason_3 = self.convertNull(self.reason3),
+                slogan = self.convertNull(self.slogan),
+                bodyPoint = self.convertNull(self.bodyPoint),
+                bodyCopy = self.convertNull(self.bodyCopy)
+                );       
+        return ArticleTemplate.objects.all();        
+    
+    def convertNull(self,column):
+        if column is None:
+            return '';
+        else:
+            return column;
+    
+    def getAllTemplate(self):
+        return ArticleTemplate.objects.all();
+           
+>>>>>>> d77c0f5f006424a9ae80e57837ec5ca97b644955

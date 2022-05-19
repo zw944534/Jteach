@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from seo.scrapers import GTrens,Klook, Kkday,Pro, Pchome,Momo,Shopee,Yahoo,\
-    Ruten,Buy123,Facebook,Instagram,Article
+    Ruten,Buy123,Facebook,Instagram,Article,EditTemplate
 from django.contrib.auth.decorators import login_required
 from future.builtins.misc import isinstance
 from users.models import Profile
@@ -152,10 +152,51 @@ def ArticleView(request):
     #         randomIndex = random.randint(0, len(articleList));
     #         constructArticle+=articleList[randomIndex].content;
             
+<<<<<<< HEAD
     article = Article(request.POST.get("city_name"),request.POST.get("description"),request.POST.get("address"),request.POST.get("tel"),request.POST.getlist("hashtag"),request.POST.get("productCategory"))
     article.scrape();
+=======
+    article = Article(request.POST.get("city_name"),request.POST.get("description"),
+                      request.POST.get("urlTitle"),request.POST.get("address"),
+                      request.POST.get("tel"),request.POST.get("saleMessage"),
+                      request.POST.getlist("hashtag"),request.POST.get("productCategory"))
+>>>>>>> d77c0f5f006424a9ae80e57837ec5ca97b644955
     articleContent = article.scrape()
+    print(articleContent);
     context={
         "article":articleContent
     }
     return render(request,"seo/article.html",context)
+
+@login_required
+def editTemplate(request):
+    
+    # if(request.user.profile.permission!='2'):
+    #     user_form = request.user
+    #     return render(request,'users/user_permissions.html', {'user': user_form})
+    template = EditTemplate(request.POST.get("catch"),request.POST.get("preCatch"),
+                      request.POST.get("subCatch"),request.POST.get("mainBody"),
+                      request.POST.get("headline"),request.POST.get("bodyText"),
+                      request.POST.getlist("description"),request.POST.get("advantage1")
+                      ,request.POST.get("advantage2"),request.POST.get("advantage3")
+                      ,request.POST.get("reason1"),request.POST.get("reason2")
+                      ,request.POST.get("reason3"),request.POST.get("slogan")
+                      ,request.POST.get("bodyPoint"),request.POST.get("bodyCopy")
+                      ,request.POST.get("templateType"),request.user)
+    if request.method == 'POST':
+        allTemplate = template.scrape()
+        print(allTemplate);
+        context={
+            "template":allTemplate
+        }
+        return render(request,"seo/editTemplate.html",context)
+    else:
+        allTemplate = template.getAllTemplate()
+        listTemplate = list(allTemplate)
+        for template in listTemplate:
+            print(template.catch)
+        context={
+            "template":listTemplate
+        }
+        return render(request,"seo/editTemplate.html",context)
+    
