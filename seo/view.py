@@ -152,7 +152,7 @@ def ArticleView(request):
     #         randomIndex = random.randint(0, len(articleList));
     #         constructArticle+=articleList[randomIndex].content;
             
-    article = Article(request.POST.get("city_name"),request.POST.get("description"),request.POST.get("address"),request.POST.get("tel"),request.POST.getlist("hashtag"))
+    article = Article(request.POST.get("city_name"),request.POST.get("description"),request.POST.get("address"),request.POST.get("tel"),request.POST.getlist("hashtag"),request.POST.get("productCategory"))
     article.scrape();
     articleContent = article.scrape()
     context={

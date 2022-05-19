@@ -23,7 +23,7 @@ sqlparse==0.4.2
 urllib3==1.26.7
 virtualenv==20.8.1
 virtualenv-clone==0.5.7
-Pillow==8.3.1
+Pillow==8.3.2
 python-dotenv==0.19.0
 social-auth-app-django==5.0.0
 django_apscheduler==0.6.2
