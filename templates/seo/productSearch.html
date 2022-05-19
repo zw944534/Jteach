@@ -1,43 +1,6 @@
 {% extends 'users/base.html' %}
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4"></script>
-    {%block scripts%}
-    <script language="JaveScript">
-		var canvas = document.getElementById('productLineChart').getContext("2d");
-		var myLineChart = new Chart(canvas, {
-               type: 'line',
-               data: {
-                   labels:[{% for i in label %}{{ i }},{% endfor %}],
-                   datasets: [{
-                        label:'My Dot',
-                        data: [{% for i in data %}{{ i }},{% endfor %}]
-                             }]
-                      },
-               options:{
-                   scales: {
-                       xAxes: [{
-                           display:true
-                              }],
-                       yAxes: [{
-                           ticks: {
-                               beginAtZero:true
-                                   }
-                               }]
-                            }
-                        }
-                      });
-		console.log(canvas);
-		console.log('----------------------');
-	</script>
-{%endblock scripts%}
-
-
-
-
 {% block content %}
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <form action="" method="Post">
         {% csrf_token %}
         <div class="form-row">
@@ -67,12 +30,12 @@
 	                    <li role="presentation">
 	                        <a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab">Yahoo</a>
 	                    </li>
-	                    <li role="presentation">
+	                    <!--<li role="presentation">
 	                        <a href="#tab5" aria-controls="tab5" role="tab" data-toggle="tab">Ruten</a>
 	                    </li>
 	                    <li role="presentation">
 	                        <a href="#tab6" aria-controls="tab6" role="tab" data-toggle="tab">生活市集</a>
-	                    </li>
+	                    </li>-->
 	                </ul>
 					<div class="tab-content">
 						<div role="tabpanel" class="tab-pane active" id="tab1">
@@ -96,7 +59,7 @@
 						                <td>
 						                	{{ ticket.describe }}
 						                </td>
-						                <td>
+						                <td class="pchome">
 						                	{{ ticket.price }}
 						                </td>
 						            </tr>
@@ -125,7 +88,7 @@
 						                <td>
 						                	{{ ticket.describe }}
 						                </td>
-						                <td>
+						                <td class="momo">
 						                	{{ ticket.price }}
 						                </td>
 						            </tr>
@@ -172,7 +135,7 @@
 						                <td>
 						                	{{ ticket.title }}
 						                </td>
-						                <td>
+						                <td class="shopee">
 						                	{{ ticket.price }}
 						                </td>
 						            </tr>
@@ -180,6 +143,7 @@
 						        </tbody>
 						    </table>	
 						</div>
+						<!--
 						<div role="tabpanel" class="tab-pane" id="tab5">
 							<label>Ruten</label>
 							<table class="table table-hover table-striped table-bordered table-condensed">
@@ -203,6 +167,7 @@
 						        </tbody>
 						    </table>	
 						</div>
+						
 						<div role="tabpanel" class="tab-pane" id="tab6">
 							<label>生活市集</label>
 							<table class="table table-hover table-striped table-bordered table-condensed">
@@ -225,16 +190,101 @@
 						            {% endfor %}
 						        </tbody>
 						    </table>	
-						</div>
+						</div>-->
 					</div>
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-12">
 				<div>
-					<canvas id="productLineChart"></canvas>
+					<canvas id="myChart" style="width:100%;max-width:100%"></canvas>
+					<br>
+					<canvas id="barChart" style="width:100%;max-width:100%"></canvas>
+					<input id="avg" hidden value="{{ data }}">
 				</div>
 			</div>
 		</div>
 	</div>
-	
+	<script>
+		var pchomes = document.getElementsByClassName('pchome');
+		var momos = document.getElementsByClassName('momo');
+		var shopees = document.getElementsByClassName('shopee');
+		var avgObj = document.getElementById('avg');
+		console.log(avgObj.value);
+		var avgArray = avgObj.value;
+		var splitAvg = avgArray.replace('[','').replace(']','').split(',');
+		var pchomePrice = setUpPrice(pchomes);
+		var momoPrice = [];
+		var step;
+		for(step=0;step<momos.length;step++){
+			console.log(momos[step].textContent);
+			momoPrice[step] = momos[step].innerText.replace(/[\n\t,]/g,'').trim();
+		}
+		var shopeePrice = setUpPrice(shopees);
+		console.log(momoPrice);
+		var xValues = [100,200,300,400,500,600,700,800,900,1000];
+		if(pchomePrice.length === 0 && momoPrice.length === 0 && shopeePrice.length === 0){
+			document.getElementById('myChart').setAttribute('hidden','true');
+		}else{
+			document.getElementById('myChart').removeAttribute('hidden');
+		}
+		new Chart("myChart", {
+		  type: "line",
+		  data: {
+		    labels: xValues,
+		    datasets: [{ 
+		      data: pchomePrice,
+		      borderColor: "red",
+		      fill: false
+		    }, { 
+		      data: momoPrice,
+		      borderColor: "green",
+		      fill: false
+		    }, { 
+		      data: shopeePrice,
+		      borderColor: "blue",
+		      fill: false
+		    }]
+		  },
+		  options: {
+		    legend: {display: false}
+		  }
+		});
+		var barxValues = ["Pchome", "MOMO", "Shopee"];
+		var baryValues = splitAvg;
+		if(baryValues[0] === '0'){
+			document.getElementById('barChart').setAttribute('hidden','true');
+		}else{
+			document.getElementById('barChart').removeAttribute('hidden');
+		}
+		console.log(baryValues);
+		var barColors = ["red", "green","blue"];
+		new Chart("barChart", {
+			  type: "bar",
+			  data: {
+			    labels: barxValues,
+			    datasets: [{
+			      backgroundColor: barColors,
+			      data: baryValues
+			    }]
+			  },
+			  options: {
+			    legend: {display: false},
+			    title: {
+			      display: true,
+			      text: "Price Average"
+			    }
+			  }
+			});
+		function setUpPrice(obj){
+			var objPrice=[];
+			if(obj.length>0){
+				var step;
+				for(step=0;step<obj.length;step++){
+					objPrice[step] = obj[step].innerText;
+				}
+			}
+			return objPrice;
+		}
+		
+	</script>
 {% endblock %}

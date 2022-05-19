@@ -14,5 +14,6 @@ urlpatterns = [
     path('search/',view.searchProduct,name='productSearch'),
     path('social/',view.facebook,name='socialContent'),
     path('ig/',view.Ig,name='IgContent'),
-    path('article/',view.ArticleView,name='article')
+    path('article/',view.ArticleView,name='article'),
+    path('editTemplate/',view.editTemplate,name='editTemplate')
 ]

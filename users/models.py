@@ -58,3 +58,25 @@ class Article(models.Model):
     
     def _str_(self):
         return self.product.name
+
+class ArticleTemplate(models.Model):
+    id = models.UUIDField(primary_key=True,default = uuid.uuid4, help_text='unique Id for this table')
+    creator = models.CharField(max_length=150);
+    templatedType = models.CharField(max_length=150,blank=True);
+    catch = models.CharField(max_length=350,blank=True);
+    preCatch =  models.CharField(max_length=350,blank=True);
+    subCatch =  models.CharField(max_length=350,blank=True);
+    headLine = models.CharField(max_length=350,blank=True);
+    mainBody = models.TextField(blank=True);
+    bodyText = models.TextField(blank=True);
+    pattern = models.TextField(blank=True);
+    description = models.CharField(max_length=350,blank=True);
+    advantage_1 = models.TextField(blank=True);
+    advantage_2 = models.TextField(blank=True);
+    advantage_3 = models.TextField(blank=True);
+    reason_1 = models.TextField(blank=True);
+    reason_2 = models.TextField(blank=True);
+    reason_3 = models.TextField(blank=True);
+    slogan = models.TextField(blank=True);
+    bodyPoint = models.CharField(max_length=350,blank=True);
+    bodyCopy = models.TextField(blank=True);

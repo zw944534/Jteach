@@ -1,0 +1,247 @@
+{% extends 'users/base.html' %}
+
+{% block content %}
+	<style>
+		[data-tooltip]:before {
+		    /* needed - do not touch */
+		    content: attr(data-tooltip);
+		    position: absolute;
+		    opacity: 0;
+		    
+		    /* customizable */
+		    transition: all 0.15s ease;
+		    padding: 10px;
+		    color: #333;
+		    border-radius: 10px;
+		    box-shadow: 2px 2px 1px silver;    
+		}
+		
+		[data-tooltip]:hover:before {
+		    /* needed - do not touch */
+		    opacity: 1;
+		    
+		    /* customizable */
+		    background: #A2D9CE;
+		    margin-top: -50px;
+		    margin-left: 20px;    
+		}
+		
+		[data-tooltip]:not([data-tooltip-persistent]):before {
+		    pointer-events: none;
+		}
+		
+	
+		
+		#addTag:hover{
+			background-color: #BEBEBE;
+		}
+	</style>
+	<div class="container">
+		{% if article %}
+		<div>
+			<pre>{{article}}</pre>
+		</div>
+		{% endif %}
+	</div>
+	<div class="form-row">
+        	<div class="form-group col-12">
+        		<label for="templateCategory">選擇輸入模板類型</label>
+	        	<select id="templateCategory" name="templateCategory" onchange="handleSelectChanged()">
+	        		<option value="template1">模板一</option>
+	        		<option value="template2">模板二</option>
+	        		<option value="template3">模板三</option>
+	        	</select>
+        	</div>
+    </div>
+    <div id="formContent" style="width:100%">
+	    <form id='template1' action="" method="Post">
+	        {% csrf_token %}
+	        
+	        <div class="form-row" >
+	            <div class="form-group col-4" data-tooltip="主要標題:即此樣板之主題" >
+	                <input class="form-control" name="catch" placeholder="請輸入樣板主標">
+	            </div>
+	            <div class="form-group col-4" data-tooltip="次要標題:用以說明主要標題之副標">
+	            	<input class="form-control" name="preCatch" placeholder="請輸入次要標題">
+	            </div>    
+	            <div class="form-group col-4" data-tooltip="副標:即用以補充主要標題之內容">
+	            	<input class="form-control" name="subCatch" placeholder="請輸入副標">
+	            </div>
+	        </div>
+	        <div class="form-row">
+	            <div class="form-group col-12" data-tooltip="內文:即此樣板之主要內容、說明">
+	            	<label>請輸入內文</label>
+	                <textarea class="form-control" name="mainBody"></textarea>
+	            </div> 
+	        </div>
+	        <div class="form-row">
+	            <div class="form-group col-12" data-tooltip="特點:即此樣板中需條列式表現之重點文字">
+	            	<label>請輸入特點</label>
+	                <textarea class="form-control" name="headline"></textarea>
+	            </div> 
+	        </div>
+	        <div class="form-row">
+	            <div class="form-group col-12" data-tooltip="特點說明:即補充說明上述特點之文字">
+	            	<label>請輸入特點說明</label>
+	                <textarea class="form-control" name="bodyText"></textarea>
+	            </div> 
+	        </div>
+	        <input class="form-control" hidden='true' name='templateType' value='template1'>
+	        <br>
+	        <div class="form-group col-1">
+	                <input class="btn btn-dark" type="submit" value="儲存">
+	        </div>
+	    </form>
+	    <form id='template2' hidden='true' action="" method="Post">
+	        {% csrf_token %}
+	        
+	        <div class="form-row" >
+	            <div class="form-group col-4" data-tooltip="請使用一句話，用以說明此商品" >
+	                <input class="form-control" name="description" placeholder="請輸入商品描述">
+	            </div>
+	            <div class="form-group col-4" data-tooltip="請簡單介紹此商品之優點(一)">
+	            	<input class="form-control" name="advantage1" placeholder="請輸入商品優點">
+	            </div>    
+	            <div class="form-group col-4" data-tooltip="請簡單介紹此商品之優點(二)">
+	            	<input class="form-control" name="advantage2" placeholder="請輸入商品優點">
+	            </div>
+	        </div>
+	        <div class="form-row" >
+	            <div class="form-group col-4" data-tooltip="請使用一句話，用以說明為甚麼需要此商品(一)" >
+	                <input class="form-control" name="reason1" placeholder="請輸入商品吸引力">
+	            </div>
+	            <div class="form-group col-4" data-tooltip="請使用一句話，用以說明為甚麼需要此商品(二)">
+	            	<input class="form-control" name="reason2" placeholder="請輸入商品吸引力">
+	            </div>    
+	            <div class="form-group col-4" data-tooltip="請使用一句話，用以說明為甚麼需要此商品(三)">
+	            	<input class="form-control" name="reason3" placeholder="請輸入商品吸引力">
+	            </div>
+	        </div>
+	        <br>
+	        <input class="form-control" hidden='true' name='templateType' value='template2'>
+	        <div class="form-group col-1">
+	                <input class="btn btn-dark" type="submit" value="儲存">
+	        </div>
+	    </form>
+    	<form id='template3' hidden='true' action="" method="Post">
+	        {% csrf_token %}
+	        
+	        <div class="form-row" >
+	            <div class="form-group col-3" data-tooltip="標語:即此樣板之核心價值傳達之話語，用以增加記憶點" >
+	                <input class="form-control" name="slogan" placeholder="請輸入樣板標語">
+	            </div>
+	            <div class="form-group col-3" data-tooltip="主要標題:即此樣板之主題" >
+	                <input class="form-control" name="catch" placeholder="請輸入樣板主標">
+	            </div>
+	            <div class="form-group col-3" data-tooltip="次要標題:用以說明主要標題之副標">
+	            	<input class="form-control" name="preCatch" placeholder="請輸入次要標題">
+	            </div>    
+	            <div class="form-group col-3" data-tooltip="副標:即用以補充主要標題之內容">
+	            	<input class="form-control" name="subCatch" placeholder="請輸入副標">
+	            </div>
+	        </div>
+	        <div class="form-row">
+	            <div class="form-group col-12" data-tooltip="內文標題:用以輔助說明內文段落之標題">
+	            	<label>請輸入內文標題</label>
+	                <textarea class="form-control" name="bodyPoint"></textarea>
+	            </div> 
+	        </div>
+	        <div class="form-row">
+	            <div class="form-group col-12" data-tooltip="內文:即此樣板之主要內容、說明">
+	            	<label>請輸入內文</label>
+	                <textarea class="form-control" name="bodyCopy"></textarea>
+	            </div> 
+	        </div>
+	        <br>
+	        <input class="form-control" hidden='true' name='templateType' value='template3'>
+	        <div class="form-group col-1">
+	                <input class="btn btn-dark" type="submit" value="儲存">
+	        </div>
+	    </form>
+    </div>
+    <script>
+		function newTag(){
+			var divElement = document.getElementById('hashTag');
+			var inputElement = document.createElement('input');
+			inputElement.class = 'form-control';
+			inputElement.name = 'hashtag';
+			divElement.appendChild(inputElement);
+		}
+		document.getElementById('addTag').onclick=newTag;
+		function handleSelectChanged(){
+			var selectElement = document.getElementById('templateCategory');
+			var selectedOption = selectElement.value;
+			var formContent = document.getElementById('formContent');
+			var formArray = formContent.children;
+			for( let i=0;i<formArray.length;i++){
+				formArray[i].setAttribute('hidden','true');
+			}			
+			document.getElementById(selectedOption).removeAttribute('hidden');
+		}
+		
+	</script>
+    {% if template %}
+    	<table class="table table-hover table-striped table-bordered table-condensed" id="table{{ product.name }}">
+    		<thead>
+    				<tr>
+    					<th>模板樣式</th>
+    					<th>模板內容</th>
+    				</tr>
+    			</thead>
+    		{% for article in template %}
+    			<tbody>
+    				<tr>
+    					<td>{{ article.templatedType }}</td>
+    					<td>
+    						<pre>
+    							{% if article.templatedType == 'template1' %}
+    							主標:
+    							{{ article.catch }}
+    							次標:
+    							{{ article.preCatch }}
+    							副標:
+    							{{ article.subCatch }}
+    							內文:
+    							{{ article.mainBody }}
+    							特點:
+    							{{ article.headLine }}
+    							特點說明:
+    							{{ article.bodyText }}
+    							{% endif %}
+    							{% if article.templatedType == 'template2' %}
+    							商品描述:
+    							{{ article.description }}
+    							商品優點(一):
+    							{{ article.advantage_1 }}
+    							商品優點(二):
+    							{{ article.advantage_2 }}
+    							商品吸引力(一):
+    							{{ article.reason_1 }}
+    							商品吸引力(二):
+    							{{ article.reason_2 }}
+    							商翸吸引力(三):
+    							{{ article.reason_3 }}
+    							{% endif %}
+    							{% if article.templatedType == 'template3' %}
+    							標語:
+    							{{ article.slogan }}
+    							主標:
+    							{{ article.catch }}
+    							次標:
+    							{{ article.preCatch }}
+    							副標:
+    							{{ article.subCatch }}
+    							內文標題:
+    							{{ article.bodyPoint }}
+    							內文:
+    							{{ article.bodyCopy }}
+    							{% endif %}
+    						</pre>
+    					</td>
+    				</tr>
+    			</tbody>
+    		{% endfor %}
+    	</table>
+    {% endif %}
+	
+{% endblock %}

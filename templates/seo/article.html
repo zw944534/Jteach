@@ -7,17 +7,34 @@
 		}
 	</style>
 	<div class="container">
-		<div>{{article}}<div>
+		{% if article %}
+		<div>
+			<pre>{{article}}</pre>
+		</div>
+		{% endif %}
 	</div>
     <form action="" method="Post">
         {% csrf_token %}
         <div class="form-row">
-            <div class="form-group col-6">
+        	<div class="form-group col-12">
+        		<label for="productCategory">選擇商品類型</label>
+	        	<select id="productCategory" name="productCategory">
+	        		<option value="normal">一般商品</option>
+	        		<option value="package">套裝商品</option>
+	        		<option value="lesson">課程商品</option>
+	        	</select>
+        	</div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-4">
                 <input class="form-control" name="city_name" placeholder="請輸入商品名稱">
             </div>
-            <div class="form-group col-6">
+            <div class="form-group col-4">
             	<input class="form-control" name="description" placeholder="請輸入相關網址">
             </div>    
+            <div class="form-group col-4">
+            	<input class="form-control" name="urlTitle" placeholder="請輸入網址說明">
+            </div>
         </div>
         <div class="form-row">
             <div class="form-group col-6">
@@ -27,9 +44,15 @@
             	<input class="form-control" name="tel" placeholder="請輸入連絡電話">
             </div>    
         </div>
+        <div class="form-row">
+        	<div class="form-group col-12">
+        		<label>請輸入商品促銷相關消息</label>
+        		<textarea class="form-control" name="saleMessage"></textarea>
+        	</div>
+        </div>
         <div id='hashTag'>
         	<div id="addTag" style=''>
-        		<span>新增Hash Tag</span>
+        		<label>新增Hash Tag</span>
         	</div>
         	
         </div>
