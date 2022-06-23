@@ -9,12 +9,28 @@
 	<div class="container">
 		{% if article %}
 		<div>
+<<<<<<< HEAD
+			<pre>
+				{{article}}
+			</pre>
+=======
 			<pre>{{article}}</pre>
+>>>>>>> d77c0f5f006424a9ae80e57837ec5ca97b644955
 		</div>
 		{% endif %}
 	</div>
     <form action="" method="Post">
         {% csrf_token %}
+	<div class="form-row">
+		<div class="form-group col-6">
+			<label for="productCategory">選擇商品類型</label>
+			<select id="productCategory" name="productCategory">
+				<option value="normal">一般商品</option>
+				<option value="package">套裝商品</option>
+				<option value="lesson">課程商品</option>
+			</select>
+		</div>
+	</div>
         <div class="form-row">
         	<div class="form-group col-12">
         		<label for="productCategory">選擇商品類型</label>

@@ -30,7 +30,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'jteach.herokuapp.com',
-    '127.0.0.1'
+    '127.0.0.1',
+    'ec2-35-77-198-78.ap-northeast-1.compute.amazonaws.com',
+    '35.77.198.78'
 ]
 
 

@@ -46,6 +46,7 @@ class Template(ABC):
         pass    
         
 class Website2(ABC):
+  # 城市名稱屬性
     def __init__(self, city_name,description,urlTitle,address,tel,saleMessage,hashtag,productCategory):
         self.city_name = city_name
         self.description = description
@@ -576,6 +577,9 @@ class Article(Website2):
         hashtag = self.hashtag
         productCategory = self.productCategory
         saleMessage = self.saleMessage
+        #    productCategory = normal/package/lesson
+        print(productCategory)
+        print(hashtag)
 #    productCategory = normal/package/lesson
 #    article belongs to database article template
         returnData = '';
@@ -617,10 +621,10 @@ class Article(Website2):
                 returnData+=tel+'\n'
                 returnData+=address+'\n'
                 returnData+=urlTitle+'\n'
-                returnData+=desc+'\n'
+                returnData+=desc+'\n'       
+            if len(hashtag)>0:
                 for tag in hashtag:
                     returnData+='#'+tag;   
-                    
         return returnData;
 
 class EditTemplate(Template):
