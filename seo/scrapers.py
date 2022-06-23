@@ -45,24 +45,15 @@ class Template(ABC):
         pass    
         
 class Website2(ABC):
-<<<<<<< HEAD
-    def __init__(self, city_name,description,address,tel,hashtag,productCategory):
-        self.city_name = city_name  # 城市名稱屬性
-=======
     def __init__(self, city_name,description,urlTitle,address,tel,saleMessage,hashtag,productCategory):
         self.city_name = city_name
->>>>>>> d77c0f5f006424a9ae80e57837ec5ca97b644955
         self.description = description
         self.urlTitle = urlTitle
         self.address = address
         self.tel = tel
         self.saleMessage = saleMessage
         self.hashtag = hashtag
-<<<<<<< HEAD
         self.productCategory = productCategory
-=======
-        self.productCategory = productCategory;
->>>>>>> d77c0f5f006424a9ae80e57837ec5ca97b644955
     @abstractmethod
     def scrape(self):
         pass
@@ -583,29 +574,17 @@ class Article(Website2):
         tel = self.tel
         hashtag = self.hashtag
         productCategory = self.productCategory
-<<<<<<< HEAD
         #    productCategory = normal/package/lesson
         print(productCategory)
         print(hashtag)
         if desc:            
             file_path = '/home/ubuntu/django/jteach/text_template/';
-=======
-#    productCategory = normal/package/lesson
-        print(productCategory)
-        if productCategory:            
-            file_path = os.getcwd()+'\\Jteach\\src\\text_template\\';
->>>>>>> d77c0f5f006424a9ae80e57837ec5ca97b644955
             file = io.open((file_path+'template.txt'),mode="r",encoding="utf-8")
-            # file = open(('C:/Users/chu/Documents/for nku/雜/final/ec_workshop/Jteach/src/text_template/'+fileName[txt]+str(fileNum)+'.txt'),'r')
             lines = file.readlines()
             article=""
             for line in lines:
                 if line.find("$product_name$")!=-1:
-<<<<<<< HEAD
                     article+=line.replace("$product_name$",keyword)+'\n'
-=======
-                    article+=line.replace("$product_name$",keyword)+'\n\r'
->>>>>>> d77c0f5f006424a9ae80e57837ec5ca97b644955
                 elif "$product_url$" in line:
                     article += line.replace("$product_url$",desc)+'\n'
                 elif "$company_addr$" in line:
@@ -613,19 +592,10 @@ class Article(Website2):
                 elif "$company_tel$" in line:
                     article += line.replace("$company_tel$",tel)+'\n'        
                 else:
-<<<<<<< HEAD
                     article+=line+'\n'        
             if len(hashtag)>0:
                 for tag in hashtag:
                     article+='#'+tag
-            return article;
-=======
-                    article+=line+'\n'
-            article+='\n'        
-            if len(hashtag)>0:
-                for tag in hashtag:
-                    article+='#'+tag
-                    
             return article;   
 
 class EditTemplate(Template):
@@ -664,4 +634,3 @@ class EditTemplate(Template):
     def getAllTemplate(self):
         return ArticleTemplate.objects.all();
            
->>>>>>> d77c0f5f006424a9ae80e57837ec5ca97b644955
