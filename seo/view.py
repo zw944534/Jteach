@@ -177,19 +177,17 @@ def editTemplate(request):
                       ,request.POST.get("reason1"),request.POST.get("reason2")
                       ,request.POST.get("reason3"),request.POST.get("slogan")
                       ,request.POST.get("bodyPoint"),request.POST.get("bodyCopy")
-                      ,request.POST.get("templateType"),request.user)
+                      ,request.POST.get("templateType"),request.POST.get("productCategory")
+                      ,request.user)
     if request.method == 'POST':
         allTemplate = template.scrape()
-        print(allTemplate);
         context={
             "template":allTemplate
         }
         return render(request,"seo/editTemplate.html",context)
     else:
         allTemplate = template.getAllTemplate()
-        listTemplate = list(allTemplate)
-        for template in listTemplate:
-            print(template.catch)
+        listTemplate = list(allTemplate);
         context={
             "template":listTemplate
         }
