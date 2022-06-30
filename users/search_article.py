@@ -107,87 +107,89 @@ def login(self):
 
 def search(product_name,user):
     if(product_name,user):
-        url = 'https://www.instagram.com/explore/tags/'+product_name+'/?__a=1'
-        print(url)
-        resultList = []
-        cookies={
-            "sessionid":'1447359165%3AAAaGwKp1D24DRa%3A13',
-            'csrftoken':'Ig7s7IxrL1EGkdcrk6vy6tASwPPIspiE'
-        }
-
-        response = requests.get(url,cookies=cookies)
-        resResult = json.loads(response.text)
-        # print(response.text)
-        print(type(resResult))
-        postDict = resResult.get('data').get('top').get('sections')
-        print(type(postDict))
-        for post in range(len(postDict)):
-            dictPost = postDict[post]
-            dictList = dictPost.get('layout_content').get('medias')
-            for media in dictList:
-                mediaDict = media.get('media')
-                shortcode = mediaDict.get('code')
-                time = mediaDict.get('taken_at')
-                likeCount = mediaDict.get('like_count')
-                commentCount = mediaDict.get('comment_count')
-                text = mediaDict.get('caption').get('text')
-                print(shortcode)
-                print(text)
-                print(commentCount)
-                resultList.append(dict(code=shortcode,text=text,time=time,likeCount=likeCount,commentCount=commentCount))
-                # for index in range(len(edgesList)):
-                    # edgeDict = edgesList[index].get('node')
-                    # text = edgeDict.get('text')
-                    # resultList.append(dict(shortcode=shortcode,text=text))
-        print(resultList)
-        userObj = User.objects.get(username=user);
-        profile = Profile.objects.get(user=userObj);
-        product = profile.product.get(name=product_name)
-        articleContent='';
-        commentCount = 0;
-        likeCount = 0;
-        for article in range(len(resultList)):
-            print(resultList[article].get('code'));
-            print(resultList[article].get('text'));
-            articleContent+=resultList[article].get('text');
-            if resultList[article].get('commentCount'):
-                commentCount = resultList[article].get('commentCount');
-            if resultList[article].get('likeCount'):
-                likeCount = resultList[article].get('likeCount');    
-            product.article.create(
-                src=resultList[article].get('code'),
-                time = resultList[article].get('time'),
-                likes = resultList[article].get('likeCount'),
-                commentCount = commentCount,
-                content = resultList[article].get('text'),
-                product = product
-            )
-        mk = imageio.imread('https://wordcloudapi.com/word_cloud.png');
-        wc = wordcloud.WordCloud(background_color="white",
-                         prefer_horizontal=0.5,
-                         repeat=True,
-                         mask=mk,
-                         contour_width=2,
-                         contour_color='pink',
-                         collocation_threshold=100,
-                         )
-        articleContentList = jieba.cut(articleContent);
-        jiebaString = ''.join(articleContentList);
+        print('test')
+        # url = 'https://www.instagram.com/explore/tags/'+product_name+'/?__a=1'
+        # print(url)
+        # resultList = []
+        # cookies={
+        #     "sessionid":'1447359165%3ASn8u0HTRswdZrJ%3A10%3AAYeIxd2abtD1E6913fAkL6QtFd95e8LB5lb9q72i1Q',
+        #     'csrftoken':'VbBPlVBUwh1tdgSRtaWAPp1WmyPJHvHX'
+        # }
         #
-        wc.generate(jiebaString);
-        plt.imshow(wc, interpolation='bilinear')
-        plt.axis("off")
-
-        image = io.BytesIO()
-        plt.savefig(image, format='png')
-        image.seek(0)  # rewind the data
-        string = base64.b64encode(image.read())
-
-        image_64 = 'data:image/png;base64,' + urllib.parse.quote(string)
-    
-        product.wordcloud = image_64;
-        product.save();
-        print(user)
+        # response = requests.get(url,cookies=cookies)
+        # print(response.text);
+        # resResult = json.loads(response.text)
+        # # print(response.text)
+        # print(type(resResult))
+        # postDict = resResult.get('data').get('top').get('sections')
+        # print(type(postDict))
+        # for post in range(len(postDict)):
+        #     dictPost = postDict[post]
+        #     dictList = dictPost.get('layout_content').get('medias')
+        #     for media in dictList:
+        #         mediaDict = media.get('media')
+        #         shortcode = mediaDict.get('code')
+        #         time = mediaDict.get('taken_at')
+        #         likeCount = mediaDict.get('like_count')
+        #         commentCount = mediaDict.get('comment_count')
+        #         text = mediaDict.get('caption').get('text')
+        #         print(shortcode)
+        #         print(text)
+        #         print(commentCount)
+        #         resultList.append(dict(code=shortcode,text=text,time=time,likeCount=likeCount,commentCount=commentCount))
+        #         # for index in range(len(edgesList)):
+        #             # edgeDict = edgesList[index].get('node')
+        #             # text = edgeDict.get('text')
+        #             # resultList.append(dict(shortcode=shortcode,text=text))
+        # print(resultList)
+        # userObj = User.objects.get(username=user);
+        # profile = Profile.objects.get(user=userObj);
+        # product = profile.product.get(name=product_name)
+        # articleContent='';
+        # commentCount = 0;
+        # likeCount = 0;
+        # for article in range(len(resultList)):
+        #     print(resultList[article].get('code'));
+        #     print(resultList[article].get('text'));
+        #     articleContent+=resultList[article].get('text');
+        #     if resultList[article].get('commentCount'):
+        #         commentCount = resultList[article].get('commentCount');
+        #     if resultList[article].get('likeCount'):
+        #         likeCount = resultList[article].get('likeCount');    
+        #     product.article.create(
+        #         src=resultList[article].get('code'),
+        #         time = resultList[article].get('time'),
+        #         likes = resultList[article].get('likeCount'),
+        #         commentCount = commentCount,
+        #         content = resultList[article].get('text'),
+        #         product = product
+        #     )
+        # mk = imageio.imread('https://wordcloudapi.com/word_cloud.png');
+        # wc = wordcloud.WordCloud(background_color="white",
+        #                  prefer_horizontal=0.5,
+        #                  repeat=True,
+        #                  mask=mk,
+        #                  contour_width=2,
+        #                  contour_color='pink',
+        #                  collocation_threshold=100,
+        #                  )
+        # articleContentList = jieba.cut(articleContent);
+        # jiebaString = ''.join(articleContentList);
+        # #
+        # wc.generate(jiebaString);
+        # plt.imshow(wc, interpolation='bilinear')
+        # plt.axis("off")
+        #
+        # image = io.BytesIO()
+        # plt.savefig(image, format='png')
+        # image.seek(0)  # rewind the data
+        # string = base64.b64encode(image.read())
+        #
+        # image_64 = 'data:image/png;base64,' + urllib.parse.quote(string)
+        #
+        # product.wordcloud = image_64;
+        # product.save();
+        # print(user)
 #    template?    product category to produce article
 #    
 

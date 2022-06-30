@@ -40,6 +40,41 @@
 		.navbar-brand{
 			height: 70px;
 		}
+		.dropbtn {
+		  padding: 10px 15px;
+		  font-size: 14px;
+		  color:rgba(0,0,0,.5);
+		  border: none;
+		  background-color:#f0f5f5;
+		}
+		
+		.dropdown {
+		  position: absolute;
+		  right:0;
+		  display: inline-block;
+		}
+		
+		.dropdown-content {
+		  display: none;
+		  position: absolute;
+		  background-color: #f1f1f1;
+		  min-width: 160px;
+		  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+		  z-index: 1;
+		}
+		
+		.dropdown-content a {
+		  color: black;
+		  padding: 12px 16px;
+		  text-decoration: none;
+		  display: block;
+		}
+		
+		.dropdown-content a:hover {background-color: #EEF1F1;}
+		
+		.dropdown:hover .dropdown-content {display: block;}
+		
+		.dropdown:hover .dropbtn {background-color: #EEF1F1;}
 	</style>
 	
     <title>{% block title %} {% endblock %} </title>
@@ -59,13 +94,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ml-auto">
                   {% if user.is_authenticated %}
-                  <ul class="nav nav-pills nav-fill">
-                  	<li class="nav-item">
-                  		<a href="{% url 'users-profile' %}" id='profile'   data-bs-toggle="pill" class="nav-link">會員資訊</a>
-                  	</li>
-                  	<li class="nav-item">
-                  		<a href="/mem_product" id='mem_product' data-bs-toggle="pill" class="nav-link">商品設定</a>
-                  	</li>	
+                  <ul class="nav nav-pills nav-fill">	
                   	<li class="nav-item">
                   		<a href="/seo"  id='seo' data-bs-toggle="pill" class="nav-link">趨勢搜尋</a>
                   	</li>	
@@ -82,8 +111,17 @@
                   		<a href="/seo/editTemplate" id='editTemplate' data-bs-toggle="pill" class="nav-link">編輯模板</a>
                   	</li>
                   	<li class="nav-item">
-                  		<a href="/seo/article" id='article' data-bs-toggle="pill" class="nav-link">文章生成</a>
+                  		<a href="/seo/article" id='article' data-bs-toggle="pill" class="nav-link">推文生成</a>
                   	</li>
+                  	<div class="dropdown">
+					  <button class="nav-item dropbtn">會員資訊</button>
+					  <div class="dropdown-content">
+					    <a href="/mem_product" id='mem_product' data-bs-toggle="pill" class="nav-link">商品設定</a>
+					    <a href="{% url 'users-profile' %}" id='profile'   data-bs-toggle="pill" class="nav-link">會員資料維護</a>
+					    <a href="{% url 'logout' %}"  data-bs-toggle="pill" class="nav-link">登出</a>
+					  </div>
+					</div>
+                  	
                   	<!-- 
                   	<li class="nav-item">
                   		<a href="/seo/social" id='social' data-bs-toggle="pill" class=" nav-link">Social Search</a>
@@ -93,9 +131,9 @@
                   	<!--<li class="nav-item">
                   		<a href="/seo/ig" id='ig' data-bs-toggle="pill" class="nav-link">Ig Search</a>
                   	</li>-->		
-                  	<li class="nav-item">
+                  	<!--<li class="nav-item">
                   	     <a href="{% url 'logout' %}"  data-bs-toggle="pill" class="nav-link">登出</a>
-                  	</li>				
+                  	</li>	-->			
                   {% else %}
                   	<li class="nav-item">
                   		<a href="{% url 'login' %}"  data-bs-toggle="pill" class="nav-link">登入</a>
