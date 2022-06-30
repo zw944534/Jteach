@@ -55,7 +55,7 @@ class Website2(ABC):
         self.tel = tel
         self.saleMessage = saleMessage
         self.hashtag = hashtag
-        self.productCategory = productCategory;
+        self.productCategory = productCategory
     @abstractmethod
     def scrape(self):
         pass
@@ -664,4 +664,3 @@ class EditTemplate(Template):
     
     def getAllTemplate(self):
         return ArticleTemplate.objects.all();
-           
