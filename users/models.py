@@ -63,6 +63,7 @@ class ArticleTemplate(models.Model):
     id = models.UUIDField(primary_key=True,default = uuid.uuid4, help_text='unique Id for this table')
     creator = models.CharField(max_length=150);
     templatedType = models.CharField(max_length=150,blank=True);
+    product_category = models.CharField(max_length=100,blank=True);
     catch = models.CharField(max_length=350,blank=True);
     preCatch =  models.CharField(max_length=350,blank=True);
     subCatch =  models.CharField(max_length=350,blank=True);

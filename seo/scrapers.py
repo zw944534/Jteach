@@ -21,7 +21,7 @@ import os
 class Template(ABC):
     def __init__(self,catch,preCatch,subCatch,mainBody,headline,bodyText,
                description,advantage1,advantage2,advantage3,reason1,reason2,reason3,
-               slogan,bodyPoint,bodyCopy,templateType,user):
+               slogan,bodyPoint,bodyCopy,templateType,productCategory,user):
         self.catch = catch
         self.preCatch = preCatch
         self.subCatch = subCatch
@@ -39,12 +39,14 @@ class Template(ABC):
         self.bodyPoint = bodyPoint
         self.bodyCopy = bodyCopy;
         self.templateType = templateType;
+        self.productCategory = productCategory;
         self.user = user;
     @abstractmethod
     def scrape(self):
         pass    
         
 class Website2(ABC):
+  # 城市名稱屬性
     def __init__(self, city_name,description,urlTitle,address,tel,saleMessage,hashtag,productCategory):
         self.city_name = city_name
         self.description = description
@@ -567,45 +569,74 @@ class Instagram(Website):
             
 class Article(Website2):
     def scrape(self):
-        print('1234')
+        productName = self.city_name
         desc = self.description
-        keyword = self.city_name
         address = self.address
         tel = self.tel
+        urlTitle = self.urlTitle
         hashtag = self.hashtag
         productCategory = self.productCategory
+        saleMessage = self.saleMessage
         #    productCategory = normal/package/lesson
         print(productCategory)
         print(hashtag)
-        if desc:            
-            file_path = '/home/ubuntu/django/jteach/text_template/';
-            file = io.open((file_path+'template.txt'),mode="r",encoding="utf-8")
-            lines = file.readlines()
-            article=""
-            for line in lines:
-                if line.find("$product_name$")!=-1:
-                    article+=line.replace("$product_name$",keyword)+'\n'
-                elif "$product_url$" in line:
-                    article += line.replace("$product_url$",desc)+'\n'
-                elif "$company_addr$" in line:
-                    article += line.replace("$company_addr$",address)+'\n'
-                elif "$company_tel$" in line:
-                    article += line.replace("$company_tel$",tel)+'\n'        
-                else:
-                    article+=line+'\n'        
+#    productCategory = normal/package/lesson
+#    article belongs to database article template
+        returnData = '';
+        if productCategory:            
+            filteredTempalte = ArticleTemplate.objects.filter(product_category=productCategory);
+            filteredList = list(filteredTempalte);
+            templateIndex = random.randint(0, len(filteredList)-1);
+            if filteredList[templateIndex]:
+                template = filteredList[templateIndex];
+                type = template.templatedType;
+                if type == 'template1':
+                    returnData+=template.catch+'\n'
+                    returnData+=template.preCatch+'\n'
+                    returnData+=template.subCatch+'\n'
+                    returnData+=productName+'\n'  
+                    returnData+=template.mainBody+'\n'
+                    returnData+=template.headLine+'\n'
+                    returnData+=template.bodyText+'\n'
+                    returnData+=template.pattern+'\n'
+                elif type == 'template2':
+                    returnData+=productName+'\n'  
+                    returnData+=template.description+'\n'
+                    returnData+=template.advantage_1+'\n'
+                    returnData+=template.advantage_2+'\n'
+                    returnData+=template.reason_1+'\n'
+                    returnData+=template.reason_2+'\n'
+                    returnData+=template.reason_3+'\n'
+                else:    
+                    returnData+=template.slogan+'\n'
+                    returnData+=template.catch+'\n'
+                    returnData+=template.subCatch+'\n'
+                    returnData+=template.preCatch+'\n'
+                    returnData+=productName+'\n'  
+                    returnData+=template.bodyPoint+'\n'
+                    returnData+=template.bodyCopy+'\n' 
+                
+                returnData+=saleMessage+'\n'
+                returnData+='\n'
+                returnData+=tel+'\n'
+                returnData+=address+'\n'
+                returnData+=urlTitle+'\n'
+                returnData+=desc+'\n'       
             if len(hashtag)>0:
                 for tag in hashtag:
-                    article+='#'+tag
-            return article;   
+                    returnData+='#'+tag;   
+        return returnData;
 
 class EditTemplate(Template):
     def scrape(self):
-        print('in edit template')   
+        print('in edit template')
         if self.user:
             ArticleTemplate.objects.create(
                 creator = self.user,
                 templatedType = self.convertNull(self.templateType),
+                
                 catch = self.convertNull(self.catch),
+                product_category = self.convertNull(self.productCategory),
                 preCatch = self.convertNull(self.preCatch),
                 subCatch = self.convertNull(self.subCatch),
                 headLine = self.convertNull(self.headline),
@@ -633,4 +664,3 @@ class EditTemplate(Template):
     
     def getAllTemplate(self):
         return ArticleTemplate.objects.all();
-           
