@@ -18,8 +18,6 @@ import wordcloud
 import matplotlib.pyplot as plt
 import io
 import urllib, base64
-from igramscraper.instagram import Instagram 
-import instaloader
 
 
 
@@ -113,17 +111,17 @@ def search(product_name,user):
     if(product_name,user):
         print('test')
         # Get instance
-        L = instaloader.Instaloader()
+        # L = instaloader.Instaloader()
         # Optionally, login or load session
         # L.login('zw944534@yahoo.com.tw', 'david960027')        # (login)
         # print(instaloader.Hashtag.from_name(L.context, 'cat').get_posts());
         count = 0;
-        hashtags = instaloader.Hashtag.from_name(L.context, product_name).get_posts();
-        for post in hashtags:
-            print(post)
-            if(count == 20):
-                break;
-            count+=1;
+        # hashtags = instaloader.Hashtag.from_name(L.context, product_name).get_posts();
+        # for post in hashtags:
+            # print(post)
+            # if(count == 20):
+                # break;
+            # count+=1;
             # L.download_post(post, target='#'+product_name)
         # L.interactive_login('zw944534@yahoo.com.tw')      # (ask password on terminal)
         # L.load_session_from_file('zw944534@yahoo.com.tw') # (load session created w/
