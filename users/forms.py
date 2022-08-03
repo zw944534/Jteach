@@ -87,7 +87,7 @@ class UpdateUserForm(forms.ModelForm):
 
 
 class UpdateProfileForm(forms.ModelForm):
-    permission = forms.ChoiceField(choices=[('1','Normal'),('2','Professional')],widget=forms.RadioSelect)
+    permission = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','readonly':'true'}))
     avatar = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
     bio = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
 
