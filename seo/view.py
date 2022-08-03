@@ -9,7 +9,7 @@ import random
 @login_required
 def index(request):
 
-    if(request.user.profile.permission!='2'):
+    if(request.user.profile.permission=='1'):
         user_form = request.user
         return render(request,'users/user_permissions.html', {'user': user_form})
     # klook = Klook(request.POST.get("city_name"))
@@ -26,7 +26,7 @@ def index(request):
 @login_required
 def product(request):
     
-    if(request.user.profile.permission!='2'):
+    if(request.user.profile.permission=='1'):
         user_form = request.user
         return render(request,'users/user_permissions.html', {'user': user_form})
     
@@ -40,7 +40,7 @@ def product(request):
 @login_required
 def searchProduct(request):
     
-    if(request.user.profile.permission!='2'):
+    if(request.user.profile.permission=='1'):
         user_form = request.user
         return render(request,'users/user_permissions.html', {'user': user_form})
     
@@ -101,7 +101,7 @@ def searchProduct(request):
 @login_required
 def facebook(request):
     
-    if(request.user.profile.permission!='2'):
+    if(request.user.profile.permission=='1'):
         user_form = request.user
         return render(request,'users/user_permissions.html', {'user': user_form})
     
@@ -115,7 +115,7 @@ def facebook(request):
 @login_required
 def Ig(request):
     
-    if(request.user.profile.permission!='2'):
+    if(request.user.profile.permission=='1'):
         user_form = request.user
         return render(request,'users/user_permissions.html', {'user': user_form})
     
@@ -136,7 +136,7 @@ def ArticleView(request):
 #    article construct limit
 #    
 
-    if(request.user.profile.permission!='2'):
+    if(request.user.profile.permission=='1'):
         user_form = request.user
         return render(request,'users/user_permissions.html', {'user': user_form})
     
@@ -166,6 +166,9 @@ def ArticleView(request):
 @login_required
 def editTemplate(request):
     
+    if(request.user.profile.permission=='1'):
+        user_form = request.user
+        return render(request,'users/user_permissions.html', {'user': user_form})
     # if(request.user.profile.permission!='2'):
     #     user_form = request.user
     #     return render(request,'users/user_permissions.html', {'user': user_form})

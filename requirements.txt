@@ -34,3 +34,4 @@ future==0.18.2
 wordcloud==1.8.1
 jieba==0.42.1
 imageio==2.16.1
+igramscraper==0.3.5

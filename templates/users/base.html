@@ -107,9 +107,11 @@
                   	<li class="nav-item">
                   		<a href="/seo/search" id='search'  data-bs-toggle="pill" class=" nav-link">商品搜尋</a>
                   	</li>
+                  	{% if user.profile.permission == 'admin' %}
                   	<li class="nav-item">
                   		<a href="/seo/editTemplate" id='editTemplate' data-bs-toggle="pill" class="nav-link">編輯模板</a>
                   	</li>
+                  	{% endif %}
                   	<li class="nav-item">
                   		<a href="/seo/article" id='article' data-bs-toggle="pill" class="nav-link">推文生成</a>
                   	</li>

@@ -13,10 +13,13 @@ import uuid
 # Extending User Model Using a One-To-One Link
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#    1->normal 2->subscribe 3->advSubcriber 4->vipSubcrisber  admin->admin
     permission = models.CharField(max_length=100, default='1')
     avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
     bio = models.TextField()
-    
+    lastSubscribeDate = models.DateField(null=True,blank=True)
+    nowArticleSearch = models.IntegerField(default=0)
+    nowArticleProduce = models.IntegerField(default=0)
     def __str__(self):
         return self.user.username
 
