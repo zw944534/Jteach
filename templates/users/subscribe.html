@@ -1,0 +1,146 @@
+{% extends "users/base.html" %}
+{% block title %} Set Permission {% endblock title%}
+{% block content %}
+	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+	  <symbol id="check" viewBox="0 0 16 16">
+	    <title>Check</title>
+	    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+	  </symbol>
+	</svg>
+	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+		<symbol id="cancel" viewBox="0 0 16 16">
+			<title>None</title>
+			<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+		</symbol>
+	</svg>
+	<div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+		<h1 class="display-4 fw-normal">訂閱服務</h1>
+		<p class="fs-5 text-muted">訂閱各式會員等級，以享有完整的體驗。</p>
+	</div>
+	<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+		<div class="col">
+			<div class="card mb-4 rounded-3 shadow-sm">
+				<div class="card-header py-3">
+					<h4 class="my-0 fw-normal">訂閱會員</h4>
+				</div>
+				<div class="card-body">
+					<h1 class="class="card-title pricing-card-title"">
+						$2000
+						<small class="text-muted fw-light">/月</small>
+					</h1>
+					<ul class="list-unstyled mt-3 mb-4">
+						<li>樣版樣式最多2樣式</li>
+						<li>文案搜尋每月最多 150 筆</li>
+						<li>文章產生每月最多 150 則</li>
+					</ul>
+					<button type="button" class="w-100 btn btn-lg btn-outline-primary">
+						立即訂閱
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card mb-4 rounded-3 shadow-sm">
+				<div class="card-header py-3">
+					<h4 class="my-0 fw-normal">高級訂閱會員</h4>
+				</div>
+				<div class="card-body">
+					<h1 class="class="card-title pricing-card-title"">
+						$3000
+						<small class="text-muted fw-light">/月</small>
+					</h1>
+					<ul class="list-unstyled mt-3 mb-4">
+						<li>樣版樣式最多3樣式</li>
+						<li>文案搜尋每月最多 250 筆</li>
+						<li>文章產生每月最多 250 則</li>
+					</ul>
+					<button type="button" class="w-100 btn btn-lg btn-outline-primary">
+						立即訂閱
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card mb-4 rounded-3 shadow-sm">
+				<div class="card-header py-3">
+					<h4 class="my-0 fw-normal">VIP會員</h4>
+				</div>
+				<div class="card-body">
+					<h1 class="class="card-title pricing-card-title"">
+						$30000
+						<small class="text-muted fw-light">/月</small>
+					</h1>
+					<ul class="list-unstyled mt-3 mb-4">
+						<li>樣版樣式類型無限制</li>
+						<li>文案搜尋每月最多 3000 筆</li>
+						<li>文章產生每月最多 3000 則</li>
+					</ul>
+					<button type="button" class="w-100 btn btn-lg btn-outline-primary">
+						立即訂閱
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<h2 class="display-6 text-center mb-4">方案比較</h2>
+	<div class="table-responsive">
+		<table class="table text-center">
+			<thead>
+				<tr>
+					<th style="width:20%"></th>
+					<th style="width:20%;text-align:center;vertical-align:middle">免費會員</th>
+					<th style="width:20%;text-align:center;vertical-align:middle">訂閱會員</th>
+					<th style="width:20%;text-align:center;vertical-align:middle">高級訂閱會員</th>
+					<th style="width:20%;text-align:center;vertical-align:middle">VIP會員</th>
+				</tr>
+			</thead>
+			<tbody>
+	          <tr>
+	            <th style="vertical-align:middle" scope="row" class="text-start">基本功能</th>
+	            <td style="text-align:center;vertical-align:middle"><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+	            <td style="text-align:center;vertical-align:middle"><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+	            <td style="text-align:center;vertical-align:middle"><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+	            <td style="text-align:center;vertical-align:middle"><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+	          </tr>
+	          <tr>
+	            <th style="vertical-align:middle" scope="row" class="text-start">樣版樣式類型</th>
+	            <td style="text-align:center;vertical-align:middle"><svg class="bi" width="24" height="24"><use xlink:href="#cancel"></use></svg></td>
+	            <td style="text-align:center;vertical-align:middle">2種</td>
+	            <td style="text-align:center;vertical-align:middle">3種</td>
+	            <td style="text-align:center;vertical-align:middle">無限制</td>
+	          </tr>
+	        </tbody>
+	        <tbody>
+	          <tr>
+	            <th style="vertical-align:middle" scope="row" class="text-start">文案搜尋</th>
+	            <td style="text-align:center;vertical-align:middle"><svg class="bi" width="24" height="24"><use xlink:href="#cancel"></use></svg></td>
+	            <td style="text-align:center;vertical-align:middle">150筆</td>
+	            <td style="text-align:center;vertical-align:middle">250筆</td>
+	            <td style="text-align:center;vertical-align:middle">3000筆</td>
+	          </tr>
+	          <tr>
+	            <th style="vertical-align:middle" scope="row" class="text-start">文章產生</th>
+	            <td style="text-align:center;vertical-align:middle"><svg class="bi" width="24" height="24"><use xlink:href="#cancel"></use></svg></td>
+	            <td style="text-align:center;vertical-align:middle">150則</td>
+	            <td style="text-align:center;vertical-align:middle">250則</td>
+	            <td style="text-align:center;vertical-align:middle">3000則</td>
+	          </tr>
+	          <!--<tr>
+	            <th scope="row" class="text-start">Unlimited members</th>
+	            <td></td>
+	            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+	            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+	            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+	          </tr>
+	          <tr>
+	            <th scope="row" class="text-start">Extra security</th>
+	            <td></td>
+	            <td></td>
+	            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+	            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"></use></svg></td>
+	          </tr>-->
+	        </tbody>
+		</table>
+	</div>
+	
+{% endblock content %}

@@ -187,3 +187,9 @@ def productArticle(request):
         articleList.append(dict(name=name,article=article,id=id,wordcloud=wordCloud))
     
     return render(request,'users/product_article.html',{'productList':articleList})
+
+@login_required
+def userSubscribe(request):
+    print(request.user);
+    
+    return render(request,'users/subscribe.html')

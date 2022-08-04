@@ -3,5 +3,14 @@
 {% block content %}
 	<div>User: {{ user.username }}</div>
 	<p>You don't have this permission.</p>
-	<p>Please go to Profile page to set permission</p>
+	<p>Please go to Update page to update your permission</p>
+	<button onclick="redirect()">Update</button>
+	
+	
+	<script>
+		function redirect(){
+			location.href='/subscribe'
+		}
+	</script>
+	
 {% endblock content %}
